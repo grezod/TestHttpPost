@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -38,6 +39,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    String callBackJson = "123";
 
 
     @Override
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
 
                 //***********
@@ -92,8 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Call call = client.newCall(request);
                 call.enqueue(new Callback() {
+
                     @Override
                     public void onFailure(Call call, IOException e) {
+
+
 
                     }
 
@@ -104,98 +110,31 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
                         parseJson(json);
 
                     }
+
                 });
 
 
                 //*******************
 
-
+                textView.setText("1");
             }
         });
         //****************
     }
 
     private void parseJson(String json) {
-        //textView.setText("123");
-        //*************
+       // ArrayList<>
+
+
     }
 
     Button btnSend;
     TextView textView;
 }
 
-
-/*async
-
-                //*******************
-               // Toast.makeText(ScrollingActivity.this,"in Imgur Upload", Toast.LENGTH_SHORT).show();
-                //String urlString = "https://imgur-apiv3.p.mashape.com/3/image/";
-
-                String urlString = "http://twpetanimal.ddns.net:9487/api/AnimalDatas/2";
-                //String urlString = "http://yahoo.com.tw";
-
-                //String mashapeKey = "MaXLzROxvOmshVYRZbRxcLZL3s0ip1bnE2Kjsn8tf3B5bKRyig"; //設定自己的 Mashape Key
-                //String clientId = "d8371f0a27e5085"; //設定自己的 Clinet ID
-                //String titleString = "hihi45454545"; //設定圖片的標題
-                //showLoadingDialog();
-
-
-
-                AsyncHttpClient client = new AsyncHttpClient();
-                //client.addHeader("X-Mashape-Key", mashapeKey);
-                //client.addHeader("Authorization", "Client-ID "+clientId);
-                //client.addHeader("Content-Type", "application/x-www-form-urlencoded");
-
-                RequestParams params = new RequestParams();
-                //params.put("title", titleString);
-               // params.put("image", image);
-                client.post
-
-
-
-                client.get(urlString, params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        //dismissLoadingDialog();
-                        if (!response.optBoolean("success") || !response.has("data")) {
-                            Log.d("editor", "response: "+response.toString());
-                            Toast.makeText(MainActivity.this,"fail", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        //Toast.makeText(ScrollingActivity.this,"in On Success", Toast.LENGTH_SHORT).show();
-
-                        JSONObject data = response.optJSONObject("data");
-                        //Log.d("editor","link: "+data.optString("link"));
-                        String link = data.optString("link","");
-                        //int width = data.optInt("width",0);
-                        //int height = data.optInt("height",0);
-                        //String bbcode = "[img="+width+"x"+height+"]"+link+"[/img]";
-
-                        Log.d("editor",data.optString("link"));
-                        //Log.d("editor",bbcode);
-                        //**
-                        Toast.makeText(MainActivity.this,data.optString("link"),Toast.LENGTH_LONG).show();
-                        //**
-
-                    }
-
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject error) {
-
-                        //Log.d("editor","error: "+error.toString());
-
-
-                        Toast.makeText(MainActivity.this,"Error:! " + statusCode + " " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                    }
-                });
-
-
-                //************************
-
- */
