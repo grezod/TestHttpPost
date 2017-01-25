@@ -12,6 +12,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+import static android.R.attr.id;
 import static android.R.attr.width;
 import static android.R.attr.x;
 //***********
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String s ="";
 
+
         init();
     }
 
@@ -60,14 +64,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
                 //***********
                 RequestBody requestBody =  RequestBody.create(JSON,"{\n" +
                         "  \"animalID\": 0,\n" +
                         "  \"animalData_animalTypeID\": 0,\n" +
                         "  \"animalName\": \"string\",\n" +
-                        "  \"animalAddress\": \"string\",\n" +
+                        "  \"animalAddress\": \"高雄\",\n" +
                         "  \"animalDate\": \"string\",\n" +
                         "  \"animalGender\": \"string\",\n" +
                         "  \"animalAge\": 0,\n" +
@@ -86,20 +88,15 @@ public class MainActivity extends AppCompatActivity {
 
                 //***************
                 Request request = new Request.Builder()
-                        //.url("http://atm201605.appspot.com/h")
-                        //.build();
-                .url("http://twpetanimal.ddns.net:9487/api/AnimalDatas")
+                .url("http://twpetanimal.ddns.net:9487/api/v1/AnimalDatas")
                         .addHeader("Content-Type","application/x-www-form-urlencoded")
                         .post(requestBody)
                         .build();
 
                 Call call = client.newCall(request);
                 call.enqueue(new Callback() {
-
                     @Override
                     public void onFailure(Call call, IOException e) {
-
-
 
                     }
 
@@ -107,29 +104,50 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String json = response.body().string();
                         Log.d("http",json);
-
-
-
-
-
+                        //textView.setText(json);
 
                         parseJson(json);
-
                     }
-
                 });
 
 
                 //*******************
 
-                textView.setText("1");
+                textView.setText(callBackJson);
             }
         });
         //****************
     }
 
     private void parseJson(String json) {
-       // ArrayList<>
+        ArrayList<petData> petDataArrayList = new ArrayList<>();
+
+        try {
+
+
+            JSONObject jObj = new JSONObject(json);
+            String id = jObj.getString("animalID");
+            String place = jObj.getString("animalAddress");
+            petData pet = new petData();
+            Log.d("id",id);
+            Log.d("Place",place);
+            callBackJson = place;
+            /*
+            JSONArray array = new JSONArray(json);
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jObj = array.getJSONObject(i);
+                String id = jObj.getString("animal_id");
+                String place = jObj.getString("animal_place");
+                petData pet = new petData();
+                Log.d("id",id);
+                Log.d("Place",place);
+
+            }
+*/
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
     }
