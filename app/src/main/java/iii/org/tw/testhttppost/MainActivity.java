@@ -67,9 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 //***********
                 RequestBody requestBody =  RequestBody.create(JSON,"{\n" +
                         "  \"animalID\": 0,\n" +
-                        "  \"animalData_animalTypeID\": 0,\n" +
                         "  \"animalName\": \"string\",\n" +
-                        "  \"animalAddress\": \"高雄\",\n" +
+                        "  \"animalAddress\": \"string\",\n" +
                         "  \"animalDate\": \"string\",\n" +
                         "  \"animalGender\": \"string\",\n" +
                         "  \"animalAge\": 0,\n" +
@@ -83,13 +82,36 @@ public class MainActivity extends AppCompatActivity {
                         "  \"animalGetter_userID\": 0,\n" +
                         "  \"animalAdopted\": \"string\",\n" +
                         "  \"animalAdoptedDate\": \"string\",\n" +
-                        "  \"animalNote\": \"123321\"\n" +
+                        "  \"animalNote\": \"string\",\n" +
+                        "  \"animalKind\": \"string\",\n" +
+                        "  \"animalType\": \"string\",\n" +
+                        "  \"animalData_Pic\": [\n" +
+                        "    {\n" +
+                        "      \"animalPicID\":0 ,\n" +
+                        "      \"animalPic_animalID\": 0,\n" +
+                        "      \"animalPicAddress\": \"string\",\n" +
+                        "    }\n" +
+                        "  ],\n" +
+                        "  \"animalData_Condition\": [\n" +
+                        "    {\n" +
+                        "      \"conditionID\": 0,\n" +
+                        "      \"condition_animalID\": 0,\n" +
+                        "      \"conditionAge\": \"string\",\n" +
+                        "      \"conditionEconomy\": \"string\",\n" +
+                        "      \"conditionHome\": \"string\",\n" +
+                        "      \"conditionFamily\": \"string\",\n" +
+                        "      \"conditionReply\": \"string\",\n" +
+                        "      \"conditionPaper\": \"string\",\n" +
+                        "      \"conditionFee\": \"string\",\n" +
+                        "      \"conditionOther\": \"string\",\n" +
+                        "    }\n" +
+                        "  ]\n" +
                         "}");
 
                 //***************
                 Request request = new Request.Builder()
                 .url("http://twpetanimal.ddns.net:9487/api/v1/AnimalDatas")
-                        .addHeader("Content-Type","application/x-www-form-urlencoded")
+                        .addHeader("Content-Type","raw")
                         .post(requestBody)
                         .build();
 
